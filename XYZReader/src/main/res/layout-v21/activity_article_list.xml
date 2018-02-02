@@ -1,5 +1,4 @@
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/coordinator_activity_article_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="112dp"
         android:elevation="4dp"
-        android:theme="@style/Theme.Bacon"
-        tools:targetApi="lollipop">
+        android:theme="@style/Theme.Bacon">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"

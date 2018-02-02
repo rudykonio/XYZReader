@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -63,33 +64,34 @@ public class ArticleListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
 
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(mToolbar);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
-        {
-            @Override
-            public void onRefresh()
+            mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+            mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+            {
+                @Override
+                public void onRefresh()
+                {
+                    refresh();
+                }
+            });
+
+
+            getLoaderManager().initLoader(0, null, this);
+
+            if (savedInstanceState == null)
             {
                 refresh();
             }
-        });
-
-
-        getLoaderManager().initLoader(0, null, this);
-
-        if (savedInstanceState == null)
-        {
-            refresh();
-        }
-
-
     }
+
 
     private void refresh()
     {
@@ -103,6 +105,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         registerReceiver(mRefreshingReceiver,
                 new IntentFilter(UpdaterService.BROADCAST_ACTION_STATE_CHANGE));
     }
+
 
     @Override
     protected void onStop()
@@ -129,6 +132,10 @@ public class ArticleListActivity extends AppCompatActivity implements
     private void updateRefreshingUI()
     {
         mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+        String noInternet = "updated :)";
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.recycler_view),
+                noInternet, Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
     }
 
     @Override

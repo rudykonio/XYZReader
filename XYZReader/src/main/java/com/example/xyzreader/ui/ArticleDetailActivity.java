@@ -3,6 +3,7 @@ package com.example.xyzreader.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
@@ -44,6 +45,7 @@ public class ArticleDetailActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             getWindow().getDecorView().setSystemUiVisibility(
@@ -96,7 +98,7 @@ public class ArticleDetailActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-                onSupportNavigateUp();
+                onBackPressed();
             }
         });
 
@@ -125,6 +127,7 @@ public class ArticleDetailActivity extends ActionBarActivity
             }
         }
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
@@ -214,4 +217,5 @@ public class ArticleDetailActivity extends ActionBarActivity
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }
+
 }
